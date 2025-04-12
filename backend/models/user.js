@@ -14,6 +14,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  googleId: {
+    type: String,
+  },
+  displayName: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

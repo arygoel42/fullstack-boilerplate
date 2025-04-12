@@ -1,36 +1,25 @@
 import React from "react";
-import { useState } from "react";
-import axios from "axios";
-const App = () => {
-  let resource = ["This", "is", "sent", "to", "the", "backend"];
-  const [recieved, setRecieved] = useState<string>("");
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
-  const submitResources = async (resource: string[]) => {
-    try {
-      let response = await axios.post("http://localhost:3011/api/users/", {
-        resource: resource,
-      });
-
-      if (response.status === 200) {
-        setRecieved(response.data);
-      } else if (response.status === 400 || response.status === 500) {
-        setRecieved("error in returning data ");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const App: React.FC = () => {
   return (
-    <div>
-      <button
-        onClick={() => {
-          submitResources(resource);
-        }}
-      ></button>
-
-      {recieved != "" ? <div>{recieved}</div> : ""}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
